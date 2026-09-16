@@ -35,10 +35,10 @@ Instructor: Jie Lin, Ph.D.
 Due Date: See Webcourses
 */
 
+#include <stdio.h>
+static int PAS[1000]; // array of 1000 ints.
 
 int main(int argc, char *argv[]) {
-
-    static int PAS[1000]; // array of 1000 ints.
 
     // registers
     int PC = 200;
