@@ -189,15 +189,29 @@ int main(int argc, char *argv[]) {
             break;
 
         case 3:  // LOD
+                if (M > 999 || M <= 200){
+                  printf("Error: data address out of range");
+                  return 1;
+                }
                  SP--;
                  PAS[SP] = PAS[base(BP, L) - M];
             break;
         case 4:  // STO
+                if (M > 999 || M <= 200){
+                  printf("Error: data address out of range");
+                  return 1;
+                }
+
                  PAS[base(BP, L) - M] = PAS[SP];
                  SP++;
             break;
 
             case 5:  // CAL
+                if (  M < 200 || M > start ){
+                  printf("Error: data address out of range");
+                  return 1;
+                }
+
                 PAS[SP-1] = base(BP, L);
                 PAS[SP-2] = BP;
                 PAS[SP-3] = PC;
