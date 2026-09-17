@@ -90,12 +90,15 @@ int main(int argc, char *argv[]) {
 
         switch (OP) {
             case 1: // LIT
+                if (SP - 1 < start) {
+                    printf("\nError: stack overflow\n");
+                    return 1;
+                }
                 SP--;
                 PAS[SP] = M;
                 break;
 
             case 2:  // OPR
-
                 switch (M) {
                 case 0: // RTN
 
@@ -146,7 +149,11 @@ int main(int argc, char *argv[]) {
                 break;
 
             case 6:  // INC
-
+                if (SP - M < start) {
+                    printf("\nError: stack overflow\n");
+                    return 1;
+                }
+                SP = SP - M;
                 break;
 
             case 7:  // JMP
@@ -154,7 +161,10 @@ int main(int argc, char *argv[]) {
                 break;
 
             case 8: // JPC
-
+                if (PAS[SP] == 0) {
+                    PC = M;
+                }
+                SP = SP + 1;
                 break;
 
             case 9: // SYS
