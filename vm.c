@@ -168,6 +168,29 @@ int main(int argc, char *argv[]) {
                 break;
 
             case 9: // SYS
+                switch (M) {
+                    case 1:
+                        printf("Output result is: %d\n", PAS[SP]);
+                        SP++;
+                        break;
+                    case 2:
+                        if (SP - 1 < start) {
+                            printf("\nError: stack overflow\n");
+                            return 1;
+                        }
+                        printf("Please Enter an Integer: ");
+                        SP--;
+                        scanf("%d", &PAS[SP]);
+                        printf("%d\n", PAS[SP]);
+                        break;
+                    case 3:
+                        // TODO Osmany:  print the final SYS trace lines before the return.
+                        return 0;
+                    default:
+                        printf("\nError: unknown SYS operation\n");
+                        return 1;
+
+                }
 
                 break;
 
