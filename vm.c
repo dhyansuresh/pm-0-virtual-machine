@@ -39,93 +39,110 @@ Due Date: See Webcourses
 static int PAS[1000]; // array of 1000 ints.
 
 int main(int argc, char *argv[]) {
+    // argc/file check
+    if (argc != 2) {
+        printf("Usage: ./vm <input files>\n");
+        return 1;
+    }
+    FILE *input_file =  fopen(argv[1], "r");
 
-    // registers
-    int PC = 200;
-    int BP = 999;
-    int SP = 1000;
+    if (input_file == NULL) {
+        printf("Error: cannot open %s\n", argv[1]);
+        return 1;
+    }
 
-    int OP = PAS[PC];
-    int L = PAS[PC + 1];
-    int M = PAS[PC + 2];
-
-    switch (OP) {
-        case 1: // LIT
-            SP--;
-            PAS[SP] = M;
+    int OP, L, M;
+    while (1) {
+        if (fscanf(input_file, "%d %d %d", &OP, &L, &M) != 3) {
             break;
+        }
+        // store ints from file
+        fscanf(input_file, "%d", &OP);
+        fscanf(input_file, "%d", &L);
+        fscanf(input_file, "%d", &M);
 
-        case 2:  // OPR
+        // registers
+        int PC = 200;
+        int BP = 999;
+        int SP = 1000;
+        
+        switch (OP) {
+            case 1: // LIT
+                SP--;
+                PAS[SP] = M;
+                break;
 
-            switch (M) {
+            case 2:  // OPR
+
+                switch (M) {
                 case 0: // RTN
 
-                    break;
+                        break;
                 case 1: // ADD
 
-                    break;
+                        break;
                 case 2: // SUB
 
-                    break;
+                        break;
                 case 3: // MUL
 
-                    break;
+                        break;
                 case 4: // DIV
 
-                    break;
+                        break;
                 case 5: // EQL
 
-                    break;
+                        break;
                 case 6: // NEQ
 
-                    break;
+                        break;
                 case 7: // LSS
 
-                    break;
+                        break;
                 case 8: // LEQ
 
-                    break;
+                        break;
                 case 9: // GTR
 
-                    break;
+                        break;
                 case 10: // GEQ
 
-                    break;
+                        break;
                 }
-            break;
+                break;
 
-        case 3:  // LOD
+            case 3:  // LOD
 
-            break;
+                break;
 
-        case 4:  // STO
+            case 4:  // STO
 
-            break;
+                break;
 
-        case 5:  // CAL
+            case 5:  // CAL
 
-            break;
+                break;
 
-        case 6:  // INC
+            case 6:  // INC
 
-            break;
+                break;
 
-        case 7:  // JMP
-            PC = M;
-            break;
+            case 7:  // JMP
+                PC = M;
+                break;
 
-        case 8: // JPC
+            case 8: // JPC
 
-            break;
+                break;
 
-        case 9: // SYS
+            case 9: // SYS
 
-            break;
+                break;
 
-        default:
+            default:
 
-            break;
+                break;
 
+    }
 }
-    return 0;
 }
