@@ -41,7 +41,7 @@ static int PAS[1000]; // array of 1000 ints.
 int main(int argc, char *argv[]) {
     // argc/file check
     if (argc != 2) {
-        printf("Usage: ./vm <input files>\n");
+        printf("Usage: ./vm <input file>\n");
         return 1;
     }
     FILE *input_file =  fopen(argv[1], "r");
@@ -52,20 +52,42 @@ int main(int argc, char *argv[]) {
     }
 
     int OP, L, M;
+    int start = 200;
+
     while (1) {
-        if (fscanf(input_file, "%d %d %d", &OP, &L, &M) != 3) {
+        if (fscanf(input_file, "%d %d %d", &OP, &L, &M) != 3) { // store ints from file
             break;
         }
-        // store ints from file
-        fscanf(input_file, "%d", &OP);
-        fscanf(input_file, "%d", &L);
-        fscanf(input_file, "%d", &M);
+        // store instructions
+        if (start + 2 <= 999) {
+            PAS[start] = OP;
+            PAS[start + 1] = L;
+            PAS[start + 2] = M;
+            start += 3;
+        } else { // error condition
+            printf("\nError: program too large for the text segment\n");
+            fclose(input_file);
+            return 1;
+        }
+    }
+    fclose(input_file);
 
-        // registers
-        int PC = 200;
-        int BP = 999;
-        int SP = 1000;
-        
+    // init register values
+    int PC = 200;
+    int BP = 999;
+    int SP = 1000;
+
+    while (1) {
+        if (PC < 200 || PC + 2 >= start) {
+            printf("\nError: program counter left the text segment\n");
+            return 1;
+        }
+        // get instructions
+        OP = PAS[PC];
+        L = PAS[PC + 1];
+        M = PAS[PC + 2];
+        PC += 3;
+
         switch (OP) {
             case 1: // LIT
                 SP--;
@@ -142,7 +164,6 @@ int main(int argc, char *argv[]) {
             default:
 
                 break;
-
+        }
     }
-}
 }
