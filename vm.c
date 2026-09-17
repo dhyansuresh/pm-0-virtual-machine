@@ -104,7 +104,9 @@ int main(int argc, char *argv[]) {
             case 2:  // OPR
                 switch (M) {
                 case 0: // RTN
-
+                        SP = BP + 1;
+                        BP = PAS[SP - 2];
+                        PC = PAS[SP - 3];
                         break;
                 case 1: // ADD
                         PAS[SP + 1] = PAS[SP] + PAS[SP + 1];
@@ -196,6 +198,13 @@ int main(int argc, char *argv[]) {
             break;
 
             case 5:  // CAL
+                PAS[SP-1] = base(BP, L);
+                PAS[SP-2] = BP;
+                PAS[SP-3] = PC;
+
+                BP = SP - 1;
+                PC = M;
+
                 break;
 
             case 6:  // INC
