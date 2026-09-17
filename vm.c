@@ -38,6 +38,9 @@ Due Date: See Webcourses
 #include <stdio.h>
 static int PAS[1000]; // array of 1000 ints.
 
+
+int base(int bp, int L);
+
 int main(int argc, char *argv[]) {
 
     // registers
@@ -95,11 +98,12 @@ int main(int argc, char *argv[]) {
             break;
 
         case 3:  // LOD
-
+                 SP--;
+                 PAS[SP] = PAS[base(BP, L) - M];
             break;
-
         case 4:  // STO
-
+                 PAS[base(BP, L) - M] = PAS[SP];
+                 SP++;
             break;
 
         case 5:  // CAL
@@ -128,4 +132,17 @@ int main(int argc, char *argv[]) {
 
 }
     return 0;
+}
+
+
+int base(int bp, int L)
+{
+  int arb = bp;
+
+  while (L > 0) {
+    arb = PAS[arb];
+    L--;
+  }
+
+  return arb;
 }
