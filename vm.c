@@ -104,38 +104,84 @@ int main(int argc, char *argv[]) {
 
                         break;
                 case 1: // ADD
-
+                        PAS[SP + 1] = PAS[SP] + PAS[SP + 1];
+                        SP++;
                         break;
                 case 2: // SUB
-
+                        PAS[SP + 1] = PAS[SP + 1] - PAS[SP];
+                        SP++;
                         break;
                 case 3: // MUL
-
+                        PAS[SP + 1] = PAS[SP] * PAS[SP + 1];
+                        SP++;
                         break;
                 case 4: // DIV
-
+                        if (PAS[SP] == 0) {
+                            printf("\nError: division by zero\n");
+                            return 1;
+                        }
+                        PAS[SP + 1] = PAS[SP + 1] / PAS[SP];
+                        SP++;
                         break;
                 case 5: // EQL
-
+                        if (PAS[SP] == PAS[SP + 1]) {
+                            PAS[SP + 1] = 1;
+                        }
+                        else {
+                            PAS[SP + 1] = 0;
+                        }
+                        SP++;
                         break;
                 case 6: // NEQ
-
+                        if (PAS[SP] != PAS[SP + 1]) {
+                            PAS[SP + 1] = 1;
+                        }
+                        else {
+                            PAS[SP + 1] = 0;
+                        }
+                        SP++;
                         break;
                 case 7: // LSS
-
+                        if (PAS[SP + 1] < PAS[SP]) {
+                            PAS[SP + 1] = 1;
+                        }
+                        else {
+                            PAS[SP + 1] = 0;
+                        }
+                        SP++;
                         break;
                 case 8: // LEQ
-
+                        if (PAS[SP + 1] <= PAS[SP]) {
+                            PAS[SP + 1] = 1;
+                        }
+                        else {
+                            PAS[SP + 1] = 0;
+                        }
+                        SP++;
                         break;
                 case 9: // GTR
-
+                        if (PAS[SP + 1] > PAS[SP]) {
+                            PAS[SP + 1] = 1;
+                        }
+                        else {
+                            PAS[SP + 1] = 0;
+                        }
+                        SP++;
                         break;
                 case 10: // GEQ
-
+                        if (PAS[SP + 1] >= PAS[SP]) {
+                            PAS[SP + 1] = 1;
+                        }
+                        else {
+                            PAS[SP + 1] = 0;
+                        }
+                        SP++;
                         break;
+                default:
+                        printf("\nError: unknown OPR sub-operation\n");
+                        return 1;
                 }
-                break;
-
+            break;
             case 3:  // LOD
 
                 break;
