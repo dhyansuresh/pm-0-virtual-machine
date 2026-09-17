@@ -192,7 +192,9 @@ int main(int argc, char *argv[]) {
                 }
                 break;
             default:
-                break;
+                printf("\nError: unknown opcode\n");
+                return 1;
         }
+        // TODO Osmany: print instructions and the updated stack
     }
 }
