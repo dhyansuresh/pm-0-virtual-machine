@@ -83,6 +83,10 @@ int main(int argc, char *argv[]) {
     int BP = 999;
     int SP = 1000;
 
+
+    printf("L\tM\tPC\tBP\tSP\tstack\n");
+    printf("Initial values: %d\t%d\t%d\n", PC, BP, SP);
+
     while (1) {
         if (PC < 200 || PC + 2 >= start) {
             printf("\nError: program counter left the text segment\n");
@@ -93,6 +97,12 @@ int main(int argc, char *argv[]) {
         L = PAS[PC + 1];
         M = PAS[PC + 2];
         PC += 3;
+
+        // Using temporal values to print because this values can change
+        // during the execution of the instruction
+        // int temp_PC = PC;
+        // int temp_BP = BP;
+        // int temp_SP = SP;
 
         switch (OP) {
             case 1: // LIT
@@ -306,7 +316,7 @@ int main(int argc, char *argv[]) {
                         printf("%d\n", PAS[SP]);
                         break;
                     case 3: // halt
-                        // TODO Osmany:  print the final SYS trace lines before the return.
+                        print_trace(nmemonic, L, M, PC, BP, SP);
                         return 0;
                     default:
                         printf("\nError: unknown SYS operation\n");
@@ -339,4 +349,33 @@ int base(int bp, int L)
 
 void print_trace(const char *mnemonic, int L, int M, int PC, int BP, int SP) {
     printf("%s\t%d\t%d\t%d\t%d\t%d\t", mnemonic, L, M, PC, BP, SP);
+
+    
+    int bases[999]; // Array to store all the bases found
+    int n = 0;
+    int b = BP;
+
+    while (b != 999) {
+        bases[n++] = b;
+        b = PAS[b - 1];
+    }
+
+
+    for (int addr = 999; addr >= SP; addr--) {
+      int is_base = 0;
+
+      for (int i = 0; i < n; i++) {
+        // Looping through the bases to see if the adress is a base
+          if (bases[i] == addr) { 
+            is_base = 1; 
+            break; 
+          }
+      }
+      
+      // changing the format if the address is a base
+        if (is_base) 
+          printf("| ");
+
+        printf("%d ", PAS[addr]);
+    }
 }
