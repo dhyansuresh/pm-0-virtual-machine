@@ -83,6 +83,10 @@ int main(int argc, char *argv[]) {
     int BP = 999;
     int SP = 1000;
 
+
+    printf("L\tM\tPC\tBP\tSP\tstack\n");
+    printf("Initial values: %d\t%d\t%d\n", PC, BP, SP);
+
     while (1) {
         if (PC < 200 || PC + 2 >= start) {
             printf("\nError: program counter left the text segment\n");
