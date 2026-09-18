@@ -1,1 +1,0 @@
-Usage: ./vm <input file>
