@@ -1,4 +1,4 @@
-L	M	PC	BP	SP	stack
+	L	M	PC	BP	SP	stack
 Initial values: 200	999	1000
 INC	0	5	203	999	995	0 0 0 0 0 
 LIT	0	31	206	999	994	0 0 0 0 0 31 

@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
     int SP = 1000;
 
 
-    printf("L\tM\tPC\tBP\tSP\tstack\n");
+    printf("\tL\tM\tPC\tBP\tSP\tstack\n");
     printf("Initial values: %d\t%d\t%d\n", PC, BP, SP);
 
     while (1) {
