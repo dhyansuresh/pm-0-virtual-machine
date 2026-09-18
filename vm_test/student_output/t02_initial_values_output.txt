@@ -1,3 +1,0 @@
-L	M	PC	BP	SP	stack
-Initial values: 200	999	1000
-SYS	0	3	203	999	1000	

@@ -3,6 +3,11 @@ cmake-build-*/
 .DS_Store
 *.pdf
 CMakeLists.txt
+Instructions
 
-
-
+# Local assignment test materials and results
+/vm_test/expected_results/
+/vm_test/failed_cases/
+/vm_test/student_output/
+/vm_test/header_comment.txt
+/vm_test/README.txt

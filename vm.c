@@ -43,6 +43,7 @@ int base(int bp, int L);
 
 void print_trace(const char *mnemonic, int L, int M, int PC, int BP, int SP);
 
+
 int main(int argc, char *argv[]) {
     // argc/file check
     if (argc != 2) {
@@ -84,7 +85,7 @@ int main(int argc, char *argv[]) {
     int SP = 1000;
 
 
-    printf("L\tM\tPC\tBP\tSP\tstack\n");
+    printf("\tL\tM\tPC\tBP\tSP\tstack\n");
     printf("Initial values: %d\t%d\t%d\n", PC, BP, SP);
 
     while (1) {
@@ -225,32 +226,33 @@ int main(int argc, char *argv[]) {
             break;
 
         case 3:  // LOD
-               nmemonic = "LOD"; 
-                if (M > 999 || M <= 200){
-                  printf("Error: data address out of range");
+               nmemonic = "LOD";
+                if (SP - 1 < start) {
+                    printf("\nError: stack overflow\n");
+                    return 1;
+                }
+                if (base(BP, L) - M > 999 || base(BP, L) - M < start){
+                    printf("\nError: data address out of range\n");
                   return 1;
                 }
                  SP--;
                  PAS[SP] = PAS[base(BP, L) - M];
             break;
         case 4:  // STO
-               nmemonic = "STO"; 
-
-                if (M > 999 || M <= 200){
-                  printf("Error: data address out of range");
-                  return 1;
+               nmemonic = "STO";
+                if (base(BP, L) - M > 999 || base(BP, L) - M < start){
+                    printf("\nError: data address out of range\n");
+                    return 1;
                 }
-
                  PAS[base(BP, L) - M] = PAS[SP];
                  SP++;
             break;
 
             case 5:  // CAL
-               nmemonic = "CAL"; 
-
-                if (  M < 200 || M > start ){
-                  printf("Error: data address out of range");
-                  return 1;
+               nmemonic = "CAL";
+                if (SP - 3 < start) {
+                    printf("\nError: stack overflow\n");
+                    return 1;
                 }
 
                 PAS[SP-1] = base(BP, L);
@@ -273,24 +275,12 @@ int main(int argc, char *argv[]) {
                 break;
 
             case 7:  // JMP
-               nmemonic = "JMP"; 
-
-               if (M > start || M < 200){
-                    printf("\nError: stack overflow\n");
-                    return 1;
-               }
-
+               nmemonic = "JMP";
                 PC = M;
                 break;
 
             case 8: // JPC
-               nmemonic = "JMC"; 
-
-                if (M > start || M < 200){
-                    printf("\nError: stack overflow\n");
-                    return 1;
-               }
-
+               nmemonic = "JPC";
                 if (PAS[SP] == 0) {
                     PC = M;
                 }
@@ -365,7 +355,7 @@ void print_trace(const char *mnemonic, int L, int M, int PC, int BP, int SP) {
       int is_base = 0;
 
       for (int i = 0; i < n; i++) {
-        // Looping through the bases to see if the adress is a base
+        // Looping through the bases to see if the address is a base
           if (bases[i] == addr) { 
             is_base = 1; 
             break; 
@@ -378,4 +368,5 @@ void print_trace(const char *mnemonic, int L, int M, int PC, int BP, int SP) {
 
         printf("%d ", PAS[addr]);
     }
+    printf("\n");
 }
