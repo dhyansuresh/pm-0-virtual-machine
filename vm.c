@@ -98,6 +98,13 @@ int main(int argc, char *argv[]) {
         M = PAS[PC + 2];
         PC += 3;
 
+        // Using temporal values to print because this values can change
+        // during the execution of the instruction
+
+        int temp_PC = PC;
+        int temp_BP = BP;
+        int temp_SP = SP;
+
         switch (OP) {
             case 1: // LIT
                 nmemonic = "LIT";
@@ -323,7 +330,7 @@ int main(int argc, char *argv[]) {
         }
 
 
-        print_trace(nmemonic, L, M, PC, BP, SP);
+        print_trace(nmemonic, L, M, temp_PC, temp_BP, temp_SP);
     }
     return 0;
 }
@@ -343,4 +350,5 @@ int base(int bp, int L)
 
 void print_trace(const char *mnemonic, int L, int M, int PC, int BP, int SP) {
     printf("%s\t%d\t%d\t%d\t%d\t%d\t", mnemonic, L, M, PC, BP, SP);
+    
 }
