@@ -264,12 +264,22 @@ int main(int argc, char *argv[]) {
 
             case 7:  // JMP
                nmemonic = "JMP"; 
+
+               if (M > start || M < 200){
+                    printf("\nError: stack overflow\n");
+                    return 1;
+               }
+
                 PC = M;
                 break;
 
             case 8: // JPC
                nmemonic = "JMC"; 
 
+                if (M > start || M < 200){
+                    printf("\nError: stack overflow\n");
+                    return 1;
+               }
 
                 if (PAS[SP] == 0) {
                     PC = M;
